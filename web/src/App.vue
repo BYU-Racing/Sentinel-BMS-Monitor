@@ -30,7 +30,6 @@ const {
     resetData,
     selectedPort,
     setActiveView,
-    statusMessage,
     statusState,
     toggleBalancing
 } = useSerialMonitor();
@@ -62,7 +61,6 @@ const statusItems = computed(() => [
                 :can-connect="canConnect"
                 :has-data="hasData"
                 :active-view="activeView"
-                :status-message="statusMessage"
                 @connect="connect"
                 @disconnect="disconnect"
                 @change-view="setActiveView"

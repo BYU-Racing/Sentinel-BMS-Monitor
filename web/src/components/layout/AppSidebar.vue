@@ -27,10 +27,6 @@ defineProps({
     activeView: {
         type: String,
         required: true
-    },
-    statusMessage: {
-        type: String,
-        default: ''
     }
 });
 
@@ -44,7 +40,6 @@ defineEmits(['update:selectedPort', 'connect', 'disconnect', 'change-view', 'res
             :ports="ports"
             :is-connected="isConnected"
             :can-connect="canConnect"
-            :status-message="statusMessage"
             @update:selected-port="$emit('update:selectedPort', $event)"
             @connect="$emit('connect')"
             @disconnect="$emit('disconnect')"

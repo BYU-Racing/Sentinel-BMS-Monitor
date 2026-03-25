@@ -17,10 +17,6 @@ defineProps({
     canConnect: {
         type: Boolean,
         default: false
-    },
-    statusMessage: {
-        type: String,
-        default: ''
     }
 });
 
@@ -41,11 +37,9 @@ function onPortChange(event) {
             aria-label="Available serial ports"
             @change="onPortChange"
         >
-            <option value="" disabled>
-                {{ ports.length ? 'Select a serial port' : 'No serial ports found' }}
-            </option>
+            <option value="">---</option>
             <option v-for="port in ports" :key="port.path" :value="port.path">
-                {{ port.label ? `${port.label} (${port.path})` : port.path }}
+                {{ port.label || port.path }}
             </option>
         </select>
         <div class="buttons">
@@ -56,6 +50,5 @@ function onPortChange(event) {
                 Disconnect
             </button>
         </div>
-        <p class="status">{{ statusMessage }}</p>
     </SidebarSection>
 </template>

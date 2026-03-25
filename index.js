@@ -6,6 +6,17 @@ const { parseSerialCommand } = require('./serial-protocol');
 
 let mainWindow;
 
+function formatPortLabel(port) {
+    const portPath = String(port?.path || '');
+    const windowsMatch = portPath.match(/^COM(\d+)$/i);
+    if (windowsMatch) {
+        return `COM ${windowsMatch[1]}`;
+    }
+
+    const segments = portPath.split(/[\\/]/).filter(Boolean);
+    return segments[segments.length - 1] || portPath;
+}
+
 function createWindow() {
     const rendererEntry = path.join(__dirname, 'web', 'dist', 'index.html');
 
@@ -35,7 +46,7 @@ function startSerialScan() {
 
         const formatted = ports.map((port) => ({
             path: port.path,
-            label: port.friendlyName || port.manufacturer || port.serialNumber || port.path
+            label: formatPortLabel(port)
         }));
 
         mainWindow.webContents.send('serial-ports', formatted);
