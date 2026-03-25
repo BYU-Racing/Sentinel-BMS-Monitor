@@ -2,19 +2,24 @@ const path = require('path');
 const fs = require('fs/promises');
 const { app, BrowserWindow, ipcMain } = require('electron');
 const serial = require('./serial');
+const { parseSerialCommand } = require('./serial-protocol');
 
 let mainWindow;
 
 function createWindow() {
+    const rendererEntry = path.join(__dirname, 'web', 'dist', 'index.html');
+
     mainWindow = new BrowserWindow({
         width: 1416,
         height: 818,
+        autoHideMenuBar: true,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
     });
 
-    mainWindow.loadFile(path.join(__dirname, 'web', 'index.html'));
+    mainWindow.setMenuBarVisibility(false);
+    mainWindow.loadFile(rendererEntry);
 
     mainWindow.on('closed', () => {
         mainWindow = null;
@@ -37,7 +42,7 @@ function startSerialScan() {
     });
 }
 
-function forwardLogData(message) {
+function forwardParsedSerialData(message) {
     if (!mainWindow || mainWindow.isDestroyed()) {
         return;
     }
@@ -46,11 +51,12 @@ function forwardLogData(message) {
         return;
     }
 
-    const trimmed = message.trim().replace(/^-\s*/, '');
-    if (!trimmed.startsWith('module ') && !trimmed.startsWith('status ') && !trimmed.startsWith('balancing ')) {
+    const parsed = parseSerialCommand(message);
+    if (!parsed) {
         return;
     }
-    mainWindow.webContents.send('serial-log', { message: trimmed });
+
+    mainWindow.webContents.send('serial-data', parsed);
 }
 
 app.whenReady().then(() => {
@@ -63,10 +69,10 @@ app.whenReady().then(() => {
         }
 
         await serial.connect(portPath);
-        serial.on('log', forwardLogData);
-        serial.on('module', forwardLogData);
-        serial.on('status', forwardLogData);
-        serial.on('balancing', forwardLogData);
+        serial.on('log', forwardParsedSerialData);
+        serial.on('module', forwardParsedSerialData);
+        serial.on('status', forwardParsedSerialData);
+        serial.on('balancing', forwardParsedSerialData);
 
         if (mainWindow && !mainWindow.isDestroyed()) {
             mainWindow.webContents.send('serial-status', { connected: true, path: portPath });

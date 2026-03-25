@@ -6,10 +6,10 @@ contextBridge.exposeInMainWorld('serialAPI', {
         ipcRenderer.on('serial-ports', listener);
         return () => ipcRenderer.removeListener('serial-ports', listener);
     },
-    onLog: (callback) => {
-        const listener = (_event, message) => callback(message);
-        ipcRenderer.on('serial-log', listener);
-        return () => ipcRenderer.removeListener('serial-log', listener);
+    onData: (callback) => {
+        const listener = (_event, data) => callback(data);
+        ipcRenderer.on('serial-data', listener);
+        return () => ipcRenderer.removeListener('serial-data', listener);
     },
     onStatus: (callback) => {
         const listener = (_event, status) => callback(status);
