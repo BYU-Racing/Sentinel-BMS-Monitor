@@ -1,6 +1,7 @@
 <script setup>
-import { MODULE_IDS } from '../../lib/constants';
 import ModuleCard from './ModuleCard.vue';
+
+const DISPLAY_MODULE_IDS = ['1', '2', '3', '4', '9', '8', '7', '6', '5'];
 
 defineProps({
     moduleState: {
@@ -27,7 +28,7 @@ defineEmits(['open-module']);
 <template>
     <div class="module-grid">
         <ModuleCard
-            v-for="moduleId in MODULE_IDS"
+            v-for="moduleId in DISPLAY_MODULE_IDS"
             :key="moduleId"
             :module-id="moduleId"
             :module-entry="moduleState[moduleId]"
