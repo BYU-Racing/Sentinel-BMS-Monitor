@@ -19,6 +19,10 @@ defineProps({
     now: {
         type: Number,
         required: true
+    },
+    moduleFaultsById: {
+        type: Object,
+        required: true
     }
 });
 
@@ -39,7 +43,7 @@ defineEmits(['open-module']);
                         @open-module="$emit('open-module', $event)"
                     />
                 </div>
-                <ModuleTable :module-state="moduleState" :now="now" />
+                <ModuleTable :module-state="moduleState" :now="now" :module-faults-by-id="moduleFaultsById" />
             </div>
         </div>
     </section>

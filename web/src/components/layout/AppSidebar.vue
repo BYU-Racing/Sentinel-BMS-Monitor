@@ -1,5 +1,6 @@
 <script setup>
 import DataActionsPanel from '../sidebar/DataActionsPanel.vue';
+import FaultListPanel from '../sidebar/FaultListPanel.vue';
 import SerialConnectionPanel from '../sidebar/SerialConnectionPanel.vue';
 import ViewSelectorPanel from '../sidebar/ViewSelectorPanel.vue';
 
@@ -23,6 +24,10 @@ defineProps({
     hasData: {
         type: Boolean,
         default: false
+    },
+    faults: {
+        type: Array,
+        required: true
     },
     activeView: {
         type: String,
@@ -55,5 +60,7 @@ defineEmits(['update:selectedPort', 'connect', 'disconnect', 'change-view', 'res
             @reset="$emit('reset')"
             @export="$emit('export')"
         />
+
+        <FaultListPanel :faults="faults" />
     </aside>
 </template>

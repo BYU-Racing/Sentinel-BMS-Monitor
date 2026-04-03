@@ -6,6 +6,7 @@ import ModuleDetailModal from './components/module/ModuleDetailModal.vue';
 import ModuleOverviewView from './views/ModuleOverviewView.vue';
 import PackStatsView from './views/PackStatsView.vue';
 import { useSerialMonitor } from './composables/useSerialMonitor';
+import { buildFaultSummary } from './lib/faults';
 
 const {
     activeModuleModalId,
@@ -40,6 +41,8 @@ const statusItems = computed(() => [
     { key: 'voltage', label: 'Voltage', status: statusState.voltage },
     { key: 'temp', label: 'Temperature', status: statusState.temp }
 ]);
+
+const faultSummary = computed(() => buildFaultSummary(moduleState, now.value));
 </script>
 
 <template>
@@ -60,6 +63,7 @@ const statusItems = computed(() => [
                 :is-connected="isConnected"
                 :can-connect="canConnect"
                 :has-data="hasData"
+                :faults="faultSummary.sidebarFaults"
                 :active-view="activeView"
                 @connect="connect"
                 @disconnect="disconnect"
@@ -81,6 +85,7 @@ const statusItems = computed(() => [
                     :module-names-by-silicon-id="moduleNamesBySiliconId"
                     :balancing-state="balancingState"
                     :now="now"
+                    :module-faults-by-id="faultSummary.moduleFaultsById"
                     @open-module="openModuleModal"
                 />
             </section>

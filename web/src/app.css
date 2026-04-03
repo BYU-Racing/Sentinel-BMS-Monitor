@@ -36,7 +36,7 @@ textarea {
 
 .app-layout {
     display: grid;
-    grid-template-columns: 160px 1fr;
+    grid-template-columns: 280px 1fr;
     gap: 16px;
     flex: 1 1 auto;
     min-height: 0;
@@ -158,12 +158,17 @@ button {
     flex-direction: column;
     gap: 16px;
     min-height: 0;
-    overflow-y: auto;
+    overflow: hidden;
     padding-right: 4px;
 }
 
 .sidebar-section {
     flex: 0 0 auto;
+}
+
+.sidebar-section:last-child {
+    flex: 1 1 auto;
+    min-height: 0;
 }
 
 label {
@@ -196,6 +201,76 @@ select {
 .view-buttons,
 .action-buttons {
     gap: 12px;
+}
+
+.fault-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    min-height: 0;
+}
+
+.fault-panel-header {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: #364152;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.fault-panel-empty {
+    margin: 0;
+    color: #52606d;
+    font-size: 0.92rem;
+}
+
+.fault-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.fault-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    color: #364152;
+}
+
+.fault-icon {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 auto;
+}
+
+.fault-icon-overvoltage {
+    color: #dc2626;
+}
+
+.fault-icon-undervoltage {
+    color: #ea580c;
+}
+
+.fault-icon-temp-disconnected,
+.fault-icon-module-disconnected {
+    color: #64748b;
+}
+
+.fault-icon-overheating {
+    color: #ef4444;
+}
+
+.fault-icon-not-enough-modules {
+    color: #b45309;
 }
 
 #connectButton {
@@ -523,6 +598,23 @@ select {
 
 .module-table tbody tr:last-child td {
     border-bottom: 0;
+}
+
+.module-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.module-fault-icons {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.module-fault-icons .fault-icon {
+    width: 15px;
+    height: 15px;
 }
 
 .stale-row {

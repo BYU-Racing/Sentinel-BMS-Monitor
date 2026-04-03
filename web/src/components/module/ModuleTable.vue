@@ -1,10 +1,16 @@
 <script setup>
 import { computed } from 'vue';
+import FaultIcon from '../icons/FaultIcon.vue';
 import { MODULE_IDS } from '../../lib/constants';
 import { formatTableValue, isModuleStale } from '../../lib/formatters';
+import { getFaultKinds } from '../../lib/faults';
 
 const props = defineProps({
     moduleState: {
+        type: Object,
+        required: true
+    },
+    moduleFaultsById: {
         type: Object,
         required: true
     },
@@ -20,8 +26,9 @@ const rows = computed(() =>
         return {
             moduleId,
             stale: isModuleStale(moduleEntry, props.now),
+            faults: props.moduleFaultsById[moduleId] ?? [],
+            faultKinds: getFaultKinds(props.moduleFaultsById[moduleId] ?? []),
             values: [
-                `Module ${moduleId}`,
                 formatTableValue(moduleEntry?.cells?.avg, 3),
                 formatTableValue(moduleEntry?.cells?.min, 3),
                 formatTableValue(moduleEntry?.cells?.max, 3),
@@ -55,6 +62,17 @@ const rows = computed(() =>
                     :data-module-id="row.moduleId"
                     :class="{ 'stale-row': row.stale }"
                 >
+                    <td class="module-name-cell">
+                        <span>Module {{ row.moduleId }}</span>
+                        <span v-if="row.faultKinds.length" class="module-fault-icons" :title="row.faults.map((fault) => fault.text).join('\n')">
+                            <FaultIcon
+                                v-for="faultType in row.faultKinds"
+                                :key="`${row.moduleId}-${faultType}`"
+                                :type="faultType"
+                                :title="faultType"
+                            />
+                        </span>
+                    </td>
                     <td v-for="(value, index) in row.values" :key="`${row.moduleId}-${index}`">
                         {{ value }}
                     </td>
