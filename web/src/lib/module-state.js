@@ -142,9 +142,7 @@ export function buildPackSummary(moduleState) {
             return;
         }
 
-        connectedCellValues.push(
-            ...moduleEntry.cells.values.filter((value) => Number.isFinite(value) && value <= 5.5)
-        );
+        connectedCellValues.push(...moduleEntry.cells.values.filter((value) => Number.isFinite(value)));
     });
 
     const summary = summarizeValues(connectedCellValues);
@@ -157,6 +155,6 @@ export function buildPackSummary(moduleState) {
 
     return {
         averagePerCell: summary.avg,
-        totalPackVoltage: summary.avg * connectedCellValues.length
+        totalPackVoltage: connectedCellValues.reduce((sum, value) => sum + value, 0)
     };
 }
