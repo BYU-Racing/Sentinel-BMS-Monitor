@@ -22,12 +22,14 @@
       "serial.js",
       "serial-protocol.js",
       "modules.json",
+      "build/icons/**/*",
       "web/dist/**/*"
     ],
     "extraMetadata": {
       "main": "index.js"
     },
     "win": {
+      "icon": "build/icons/icon.ico",
       "signAndEditExecutable": false,
       "target": [
         {

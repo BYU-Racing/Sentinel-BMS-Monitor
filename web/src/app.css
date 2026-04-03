@@ -29,15 +29,15 @@ textarea {
 .app-shell {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding: 16px;
+    gap: 12px;
+    padding: 0 12px 12px;
     height: 100%;
 }
 
 .app-layout {
     display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 16px;
+    grid-template-columns: 224px 1fr;
+    gap: 12px;
     flex: 1 1 auto;
     min-height: 0;
 }
@@ -94,6 +94,14 @@ h2 {
 
 .header-right {
     justify-content: flex-end;
+}
+
+.app-banner {
+    width: min(820px, 100%);
+    height: auto;
+    max-height: 84px;
+    object-fit: contain;
+    flex: 0 0 auto;
 }
 
 .status-indicators {

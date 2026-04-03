@@ -7,6 +7,10 @@ defineProps({
         type: String,
         required: true
     },
+    logoSrc: {
+        type: String,
+        default: ''
+    },
     statusItems: {
         type: Array,
         required: true
@@ -32,7 +36,7 @@ defineEmits(['toggle-balancing']);
     <header class="app-header panel">
         <div class="header-row">
             <div class="header-left">
-                <h1>{{ title }}</h1>
+                <img v-if="logoSrc" class="app-banner" :src="logoSrc" :alt="title">
             </div>
             <div class="header-center">
                 <StatusIndicators :items="statusItems" />

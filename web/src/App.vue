@@ -7,6 +7,7 @@ import ModuleOverviewView from './views/ModuleOverviewView.vue';
 import PackStatsView from './views/PackStatsView.vue';
 import { useSerialMonitor } from './composables/useSerialMonitor';
 import { buildFaultSummary } from './lib/faults';
+import bannerSrc from './assets/sentinel-banner.svg';
 
 const {
     activeModuleModalId,
@@ -48,7 +49,8 @@ const faultSummary = computed(() => buildFaultSummary(moduleState, now.value));
 <template>
     <main class="app-shell">
         <AppHeader
-            title="Sentinel Monitor"
+            title="Sentinel Battery Management"
+            :logo-src="bannerSrc"
             :status-items="statusItems"
             :balancing-summary="balancingSummary"
             :balancing-enabled="balancingState.enabled"

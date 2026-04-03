@@ -19,11 +19,13 @@ function formatPortLabel(port) {
 
 function createWindow() {
     const rendererEntry = path.join(__dirname, 'web', 'dist', 'index.html');
+    const windowIcon = path.join(__dirname, 'build', 'icons', 'window-icon.png');
 
     mainWindow = new BrowserWindow({
         width: 1416,
         height: 818,
         autoHideMenuBar: true,
+        icon: windowIcon,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
