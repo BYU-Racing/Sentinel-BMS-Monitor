@@ -106,6 +106,12 @@ export function formatModuleTooltip(moduleId, value) {
     return `Module ${moduleId} average voltage: ${value.toFixed(3)} V`;
 }
 
+export function formatModuleSummaryTooltip(moduleId, averageCellVoltage, totalVoltage) {
+    const averageText = Number.isFinite(averageCellVoltage) ? `${averageCellVoltage.toFixed(3)} V` : '---';
+    const totalText = Number.isFinite(totalVoltage) ? `${totalVoltage.toFixed(3)} V` : '---';
+    return `Module ${moduleId} average cell voltage: ${averageText}, total voltage: ${totalText}`;
+}
+
 export function formatSiliconId(value) {
     if (!value || value === '-') {
         return '---';

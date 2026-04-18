@@ -1,7 +1,8 @@
 <script setup>
 import { computed } from 'vue';
-import { cellHeightForVoltage, formatCellTooltip, formatModuleTooltip, formatTempTooltip, isModuleStale, tempColorForValue, voltageColorForValue } from '../../lib/formatters';
+import { cellHeightForVoltage, formatCellTooltip, formatModuleSummaryTooltip, formatTempTooltip, isModuleStale, tempColorForValue, voltageColorForValue } from '../../lib/formatters';
 import { getModuleCardLabel } from '../../lib/module-state';
+import { getModuleTotalVoltage } from '../../lib/module-state';
 
 const props = defineProps({
     moduleId: {
@@ -33,7 +34,13 @@ const cellValues = computed(() =>
 );
 const label = computed(() => getModuleCardLabel(props.moduleEntry, props.moduleNamesBySiliconId));
 const stale = computed(() => isModuleStale(props.moduleEntry, props.now));
-const tooltip = computed(() => formatModuleTooltip(props.moduleId, props.moduleEntry?.cells?.avg));
+const tooltip = computed(() =>
+    formatModuleSummaryTooltip(
+        props.moduleId,
+        props.moduleEntry?.cells?.avg,
+        getModuleTotalVoltage(props.moduleEntry)
+    )
+);
 
 function openCard() {
     emit('open', props.moduleId);

@@ -4,6 +4,7 @@ import FaultIcon from '../icons/FaultIcon.vue';
 import { MODULE_IDS } from '../../lib/constants';
 import { formatTableValue, isModuleStale } from '../../lib/formatters';
 import { getFaultKinds } from '../../lib/faults';
+import { getModuleDisplayName } from '../../lib/module-state';
 
 const props = defineProps({
     moduleState: {
@@ -11,6 +12,10 @@ const props = defineProps({
         required: true
     },
     moduleFaultsById: {
+        type: Object,
+        required: true
+    },
+    moduleNamesBySiliconId: {
         type: Object,
         required: true
     },
@@ -25,6 +30,7 @@ const rows = computed(() =>
         const moduleEntry = props.moduleState[moduleId] ?? {};
         return {
             moduleId,
+            moduleName: getModuleDisplayName(moduleEntry, props.moduleNamesBySiliconId),
             stale: isModuleStale(moduleEntry, props.now),
             faults: props.moduleFaultsById[moduleId] ?? [],
             faultKinds: getFaultKinds(props.moduleFaultsById[moduleId] ?? []),
@@ -63,7 +69,10 @@ const rows = computed(() =>
                     :class="{ 'stale-row': row.stale }"
                 >
                     <td class="module-name-cell">
-                        <span>Module {{ row.moduleId }}</span>
+                        <span class="module-name-text">
+                            <span>Module {{ row.moduleId }}</span>
+                            <small v-if="row.moduleName" class="module-name-subtext">{{ row.moduleName }}</small>
+                        </span>
                         <span v-if="row.faultKinds.length" class="module-fault-icons" :title="row.faults.map((fault) => fault.text).join('\n')">
                             <FaultIcon
                                 v-for="faultType in row.faultKinds"

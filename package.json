@@ -1,6 +1,6 @@
 {
   "name": "sentinel-bms-monitor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Electron-based monitoring software for Sentinel BMS devices.",
   "author": "Isaac Rampton",
   "main": "index.js",

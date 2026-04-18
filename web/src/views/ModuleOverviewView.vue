@@ -43,7 +43,12 @@ defineEmits(['open-module']);
                         @open-module="$emit('open-module', $event)"
                     />
                 </div>
-                <ModuleTable :module-state="moduleState" :now="now" :module-faults-by-id="moduleFaultsById" />
+                <ModuleTable
+                    :module-state="moduleState"
+                    :module-names-by-silicon-id="moduleNamesBySiliconId"
+                    :now="now"
+                    :module-faults-by-id="moduleFaultsById"
+                />
             </div>
         </div>
     </section>

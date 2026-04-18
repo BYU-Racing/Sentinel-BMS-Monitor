@@ -85,8 +85,21 @@ export function getModuleCardLabel(moduleEntry, moduleNamesBySiliconId) {
     return getModuleName(moduleEntry, moduleNamesBySiliconId) || formatSiliconId(moduleEntry?.siliconId);
 }
 
+export function getModuleDisplayName(moduleEntry, moduleNamesBySiliconId) {
+    return getModuleName(moduleEntry, moduleNamesBySiliconId) || '';
+}
+
 export function getModuleModalTitle(moduleId, moduleEntry, moduleNamesBySiliconId) {
     return `M${moduleId} ${getModuleName(moduleEntry, moduleNamesBySiliconId) || formatSiliconId(moduleEntry?.siliconId)} Details`;
+}
+
+export function getModuleTotalVoltage(moduleEntry) {
+    const cellValues = moduleEntry?.cells?.values?.filter((value) => Number.isFinite(value)) ?? [];
+    if (!cellValues.length) {
+        return null;
+    }
+
+    return cellValues.reduce((sum, value) => sum + value, 0);
 }
 
 export function buildSummarySnapshot(moduleState) {

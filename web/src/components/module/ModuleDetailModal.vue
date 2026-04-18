@@ -1,7 +1,7 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted } from 'vue';
 import { formatSiliconId, formatTableValue } from '../../lib/formatters';
-import { getModuleModalTitle } from '../../lib/module-state';
+import { getModuleModalTitle, getModuleTotalVoltage } from '../../lib/module-state';
 
 const props = defineProps({
     moduleId: {
@@ -43,7 +43,9 @@ const title = computed(() =>
         ? getModuleModalTitle(props.moduleId, moduleEntry.value, props.moduleNamesBySiliconId)
         : 'Module Details'
 );
+const averageCellVoltage = computed(() => formatTableValue(moduleEntry.value?.cells?.avg, 3));
 const siliconId = computed(() => formatSiliconId(moduleEntry.value?.siliconId));
+const totalVoltage = computed(() => formatTableValue(getModuleTotalVoltage(moduleEntry.value), 3));
 
 function onWindowKeydown(event) {
     if (event.key === 'Escape' && props.moduleId) {
@@ -71,10 +73,20 @@ onBeforeUnmount(() => {
                 <h3 id="moduleModalTitle">{{ title }}</h3>
                 <button class="modal-close" type="button" @click="emit('close')">Close</button>
             </div>
-            <p class="modal-meta">
-                <strong>Silicon ID:</strong>
-                <span class="modal-meta-value">{{ siliconId }}</span>
-            </p>
+            <div class="modal-meta-row">
+                <p class="modal-meta">
+                    <strong>Avg Cell Voltage:</strong>
+                    <span class="modal-meta-value">{{ averageCellVoltage }} V</span>
+                </p>
+                <p class="modal-meta">
+                    <strong>Total Voltage:</strong>
+                    <span class="modal-meta-value">{{ totalVoltage }} V</span>
+                </p>
+                <p class="modal-meta">
+                    <strong>Silicon ID:</strong>
+                    <span class="modal-meta-value">{{ siliconId }}</span>
+                </p>
+            </div>
             <section class="modal-section">
                 <h4>Cells</h4>
                 <table class="detail-table" aria-label="Module cell readings">
