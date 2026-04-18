@@ -40,7 +40,8 @@ const rows = computed(() =>
                 formatTableValue(moduleEntry?.cells?.max, 3),
                 formatTableValue(moduleEntry?.temp?.avg, 1),
                 formatTableValue(moduleEntry?.temp?.min, 1),
-                formatTableValue(moduleEntry?.temp?.max, 1)
+                formatTableValue(moduleEntry?.temp?.max, 1),
+                formatTableValue(moduleEntry?.temp?.t7, 1)
             ]
         };
     })
@@ -59,6 +60,7 @@ const rows = computed(() =>
                     <th>T Avg</th>
                     <th>T Min</th>
                     <th>T Max</th>
+                    <th>Board Temp</th>
                 </tr>
             </thead>
             <tbody>

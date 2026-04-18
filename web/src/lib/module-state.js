@@ -46,10 +46,11 @@ export function updateModuleEntry(moduleState, parsedLine) {
             .map((index) => temps.get(index))
             .filter((value) => Number.isFinite(value));
         const validAverageTemps = t1To6.filter((value) => value > 0);
+        const t1To6Summary = summarizeValues(t1To6);
 
         moduleEntry.temp = {
-            min: parsedLine.min,
-            max: parsedLine.max,
+            min: t1To6Summary?.min ?? null,
+            max: t1To6Summary?.max ?? null,
             avg: summarizeValues(validAverageTemps)?.avg ?? null,
             t1To6,
             t7: temps.get(7),
@@ -131,7 +132,6 @@ export function buildSummarySnapshot(moduleState) {
 
     const cellSummary = summarizeValues(allCellValues.filter((value) => Number.isFinite(value)));
     const tempSummary = summarizeValues(allTempValues.filter((value) => Number.isFinite(value)));
-    const t7Summary = summarizeValues(allT7Values.filter((value) => Number.isFinite(value)));
     const cellAverageSummary = summarizeValues(validAverageCellValues);
     const tempAverageSummary = summarizeValues(validAverageTempValues);
     const t7AverageSummary = summarizeValues(validAverageT7Values);

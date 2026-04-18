@@ -27,8 +27,8 @@ const cellRow = computed(() =>
 );
 const thermHeaders = computed(() =>
     moduleEntry.value?.temp?.values?.length
-        ? moduleEntry.value.temp.values.map((entry) => `T${entry.index}`)
-        : Array.from({ length: 7 }, (_, index) => `T${index + 1}`)
+        ? moduleEntry.value.temp.values.map((entry) => (entry.index === 7 ? 'Board Temp' : `T${entry.index}`))
+        : Array.from({ length: 7 }, (_, index) => (index === 6 ? 'Board Temp' : `T${index + 1}`))
 );
 const thermRow = computed(() =>
     moduleEntry.value?.temp?.values?.length

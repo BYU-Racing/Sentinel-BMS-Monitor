@@ -25,7 +25,7 @@ export const TEMPERATURE_SERIES = [
     { key: 'temp_min_c', label: 'T1-T6 Min', color: '#ec4899' },
     { key: 'temp_max_c', label: 'T1-T6 Max', color: '#8b5cf6' },
     { key: 'temp_avg_c', label: 'T1-T6 Avg', color: '#f59e0b' },
-    { key: 'temp7_avg_c', label: 'T7 Avg', color: '#06b6d4' }
+    { key: 'temp7_avg_c', label: 'Board Temp Avg', color: '#06b6d4' }
 ];
 
 export const ALL_SERIES = [...VOLTAGE_SERIES, ...TEMPERATURE_SERIES];
