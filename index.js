@@ -24,6 +24,7 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         width: 1416,
         height: 818,
+        resizable: true, // allow scrolling
         autoHideMenuBar: true,
         icon: windowIcon,
         webPreferences: {
