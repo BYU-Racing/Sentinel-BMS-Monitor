@@ -21,7 +21,7 @@ defineEmits(['toggle']);
     <div class="balancing-controls">
         <span class="balancing-summary">{{ summary }}</span>
         <button class="balancing-button" type="button" :disabled="disabled" @click="$emit('toggle')">
-            {{ enabled ? 'Balancing Off' : 'Balancing On' }}
+            {{ enabled ? 'Turn Balancing Off' : 'Turn Balancing On' }}
         </button>
     </div>
 </template>
