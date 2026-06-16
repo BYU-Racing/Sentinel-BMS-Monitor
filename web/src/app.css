@@ -54,13 +54,13 @@ textarea {
 .panel  {
     background: #ffffff;
     padding: 10px;
-    border-radius: 8px;
+    /* border-radius: 8px; */
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
 }
 
 .app-header {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 h1 {
@@ -154,13 +154,13 @@ button {
 }
 
 .balancing-button {
-    background: #111827;
+    background: #ffb92d;
     color: #ffffff;
     min-width: 144px;
 }
 
 .balancing-button:hover {
-    filter: brightness(115%);
+    filter: brightness(110%);
 }
 
 .balancing-button:disabled {
